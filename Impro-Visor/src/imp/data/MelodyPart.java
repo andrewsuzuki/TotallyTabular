@@ -1761,29 +1761,6 @@ public ArrayList<Integer> getArrayListForm()
   }
 
 /**
- * !!TT!!
- * Get the melody as a list of just note symbols in leadsheet notation
- * @return 
- */
-public ArrayList<Note> getArrayListFormTT()
- {
- ArrayList<Note> result = new ArrayList<Note>();
-
- int n = slots.size();
-
- for( int i = 0; i < n; i++ )
-   {
-   Note note = (Note)slots.get(i);
-   if( note != null )
-     {
-       result.add(note);
-     }
-   }
- return result;
- }
-
-
-/**
  * getSyncVector gets an array of 1's and 0's from a MelodyPart
  * representing note onsets, for the purpose of a synchronization
  * algorithm being implemented by David Halpern. Currently every slotSpacing-th

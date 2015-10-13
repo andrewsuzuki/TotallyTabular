@@ -10978,13 +10978,8 @@ private void recordFromMidi()
      * !!TT!!
      */
     private void gtabBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("Tab button pressed.");
-        
-        for (Note note : getCurrentMelodyPart().getArrayListFormTT()) {
-        	System.out.println(note.getPitchClassName() + ", ");
-        }
-        
-        // System.out.println(getCurrentMelodyPart().getArrayListFormTT());
+        // Make a gtab and open window
+    	new MakeGtabCommand(this, getCurrentMelodyPart()).execute();
     }
 
     private void windowMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_windowMenuMenuSelected
