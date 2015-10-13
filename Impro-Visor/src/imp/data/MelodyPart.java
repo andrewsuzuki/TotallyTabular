@@ -190,7 +190,7 @@ public void addNote(Note note)
     // Ideally, if the note being added is a rest, and the last note is a rest,
     // the new rest should be merged in with the existing one. But my attempt
     // at this failed for some reason.
-
+		
     if( note.isRest() )
       {
       }
@@ -1759,6 +1759,28 @@ public ArrayList<Integer> getArrayListForm()
     }
   return result;
   }
+
+/**
+ * !!TT!!
+ * Get the melody as a list of just note symbols in leadsheet notation
+ * @return 
+ */
+public ArrayList<Note> getArrayListFormTT()
+ {
+ ArrayList<Note> result = new ArrayList<Note>();
+
+ int n = slots.size();
+
+ for( int i = 0; i < n; i++ )
+   {
+   Note note = (Note)slots.get(i);
+   if( note != null )
+     {
+       result.add(note);
+     }
+   }
+ return result;
+ }
 
 
 /**

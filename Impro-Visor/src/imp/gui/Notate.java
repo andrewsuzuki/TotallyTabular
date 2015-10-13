@@ -1903,6 +1903,7 @@ public Critic getCritic()
         loopSet = new javax.swing.JTextField();
         countInCheckBox = new javax.swing.JCheckBox();
         playBtn = new javax.swing.JButton();
+        gtabBtn = new javax.swing.JButton();
         pauseBtn = new javax.swing.JToggleButton();
         stopBtn = new javax.swing.JButton();
         recordBtn = new javax.swing.JButton();
@@ -7565,6 +7566,19 @@ public Critic getCritic()
             }
         });
         playToolBar.add(playBtn);
+        
+        gtabBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imp/gui/graphics/toolbar/play.gif"))); // NOI18N
+        gtabBtn.setToolTipText("Generate a guitar tab of the current score.");
+        gtabBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        gtabBtn.setMaximumSize(new java.awt.Dimension(30, 30));
+        gtabBtn.setMinimumSize(new java.awt.Dimension(30, 30));
+        gtabBtn.setPreferredSize(new java.awt.Dimension(30, 30));
+        gtabBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	gtabBtnActionPerformed(evt);
+            }
+        });
+        playToolBar.add(gtabBtn);
 
         pauseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imp/gui/graphics/toolbar/pause.gif"))); // NOI18N
         pauseBtn.setToolTipText("Pause or resume playback.");
@@ -10959,6 +10973,19 @@ private void recordFromMidi()
         improvOn = false;
         playAll();
     }//GEN-LAST:event_playBtnActionPerformed
+    
+    /**
+     * !!TT!!
+     */
+    private void gtabBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        System.out.println("Tab button pressed.");
+        
+        for (Note note : getCurrentMelodyPart().getArrayListFormTT()) {
+        	System.out.println(note.getPitchClassName() + ", ");
+        }
+        
+        // System.out.println(getCurrentMelodyPart().getArrayListFormTT());
+    }
 
     private void windowMenuMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_windowMenuMenuSelected
 
@@ -25102,6 +25129,7 @@ private ImageIcon pauseButton =
     private javax.swing.JComboBox pitchRangePresetComboBox1;
     private javax.swing.JMenuItem playAllMI;
     private javax.swing.JButton playBtn;
+    private javax.swing.JButton gtabBtn;
     private javax.swing.JMenu playMenu;
     private javax.swing.JMenuItem playSelectionMI;
     private javax.swing.JMenuItem playSelectionToEndMI;
