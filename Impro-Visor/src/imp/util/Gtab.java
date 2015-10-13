@@ -46,7 +46,7 @@ public class Gtab {
 		// Otherwise default to 21 frets
 		this.frets = (frets < 4) ? 21 : frets;
 		
-		// Init list of tabbed notes
+		// Initialize list of GtabbedNotes
 		this.fns = new ArrayList<GtabbedNote>();
 	}
 	
@@ -156,26 +156,29 @@ public class Gtab {
 	}
 	
 	/**
-	 * Render this tab as a single stave. Could possibly be very wide -- turn off word wrap
+	 * Render this tab as a single stave. Could possibly be very wide.
 	 * @return
 	 */
 	public String renderAsSingleStave() {
-		StringBuilder s1 = new StringBuilder("e|");
-		StringBuilder s2 = new StringBuilder("B|");
-		StringBuilder s3 = new StringBuilder("G|");
-		StringBuilder s4 = new StringBuilder("D|");
-		StringBuilder s5 = new StringBuilder("A|");
-		StringBuilder s6 = new StringBuilder("E|");
+		StringBuilder[] sbs = {
+				null, // pad beginning so that array index = string #
+				new StringBuilder("e|"),
+				new StringBuilder("B|"),
+				new StringBuilder("G|"),
+				new StringBuilder("D|"),
+				new StringBuilder("A|"),
+				new StringBuilder("E|")
+		};
 		
+		// Loop all placed notes
 		for (GtabbedNote gtn : fns) {			
 			// If it's an invalid note, denote it as such
+			// TODO handle rests
 			if (gtn.getStringNum() < 0) {
-				s1.append("!-");
-				s2.append("!-");
-				s3.append("!-");
-				s4.append("!-");
-				s5.append("!-");
-				s6.append("!-");
+				// Add exclamation marks to each line
+				for (int i = 1; i < sbs.length; i++) {
+					sbs[i].append("!-");
+				}
 				continue;
 			}
 			
@@ -183,74 +186,27 @@ public class Gtab {
 			// Make a hyphen spacer for the other strings; same length as fret number length
 			String spacer = new String(new char[fret.length()]).replace("\0", "-");
 			
-			switch (gtn.getStringNum()) {
-			case 1:
-				s1.append(fret);
-				s2.append(spacer);
-				s3.append(spacer);
-				s4.append(spacer);
-				s5.append(spacer);
-				s6.append(spacer);
-				break;
-			case 2:
-				s2.append(fret);
-				s1.append(spacer);
-				s3.append(spacer);
-				s4.append(spacer);
-				s5.append(spacer);
-				s6.append(spacer);
-				break;
-			case 3:
-				s3.append(fret);
-				s1.append(spacer);
-				s2.append(spacer);
-				s4.append(spacer);
-				s5.append(spacer);
-				s6.append(spacer);
-				break;
-			case 4:
-				s4.append(fret);
-				s1.append(spacer);
-				s2.append(spacer);
-				s3.append(spacer);
-				s5.append(spacer);
-				s6.append(spacer);
-				break;
-			case 5:
-				s5.append(fret);
-				s1.append(spacer);
-				s2.append(spacer);
-				s3.append(spacer);
-				s4.append(spacer);
-				s6.append(spacer);
-				break;
-			case 6:
-				s6.append(fret);
-				s1.append(spacer);
-				s2.append(spacer);
-				s3.append(spacer);
-				s4.append(spacer);
-				s5.append(spacer);
-				break;
+			// Loop strings
+			for (int i = 1; i < sbs.length; i++) {
+				if (i == gtn.getStringNum()) {
+					// If note is on string, give it the fret number
+					sbs[i].append(fret);
+				} else {
+					// Otherwise, add a spacer of the same length
+					sbs[i].append(spacer);
+				}
 			}
 		}
 		
-		// Add final stave bar and newlines
-		s1.append("|\n");
-		s2.append("|\n");
-		s3.append("|\n");
-		s4.append("|\n");
-		s5.append("|\n");
-		s6.append("|\n");
-		
 		// Build final stave string
 		StringBuilder stave = new StringBuilder();
-		stave.append(s1);
-		stave.append(s2);
-		stave.append(s3);
-		stave.append(s4);
-		stave.append(s5);
-		stave.append(s6);
+					
+		for (int i = 1; i < sbs.length; i++) {
+			// Append string
+			stave.append(sbs[i]);
+			// Add final stave bar and newlines after each line
+			stave.append("|\n");
+		}
 		
 		// Render and return stave string
 		return stave.toString();
