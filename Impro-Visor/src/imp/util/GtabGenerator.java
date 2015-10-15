@@ -15,7 +15,7 @@ public class GtabGenerator {
 	 * @return
 	 */
 	public static Gtab makeGtabFromMelodyPart(MelodyPart mp) {
-		// Init Gtab
+		// Initialize Gtab
 		Gtab gtab = new Gtab();
 		
 		// Get notes in melody part and add to tab
