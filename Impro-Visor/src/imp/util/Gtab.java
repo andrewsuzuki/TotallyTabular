@@ -50,13 +50,17 @@ public class Gtab {
 		this.fns = new ArrayList<GtabbedNote>();
 	}
 	
+	/**
+	 * Get the number of frets of the guitar intended for this tab
+	 * @return
+	 */
 	public int getFrets() {
 		return frets;
 	}
 	
 	/**
-	 * Corrects for the fact that guitar music is typically
-	 * written one octave higher than it sounds
+	 * Helper method that corrects for the fact that guitar music
+	 * is typically written one octave higher than it sounds
 	 * @param pitch
 	 */
 	private int transposePitchForGuitar(int pitch) {
@@ -64,12 +68,14 @@ public class Gtab {
 	}
 	
 	/**
-	 * Get all possible placements for a note
+	 * Get a collection of all possible placements for a note
 	 * @return
 	 */
 	private ArrayList<GtabbedNote> getPossiblePlacements(Note note) {
+		// Correct pitch (transpose 8vb)
 		int pitch = transposePitchForGuitar(note.getPitch());
 		
+		// Initialize collection of possible tab notes
 		ArrayList<GtabbedNote> pp = new ArrayList<GtabbedNote>();
 		
 		// Check for possibility on each string
@@ -102,10 +108,11 @@ public class Gtab {
 	}
 	
 	/**
-	 * Place note at lowest position possible
+	 * Place a note at the lowest position possible
 	 * @param note
 	 */
 	public void placeLowest(Note note) {
+		// Keep track of the lowest possibility
 		GtabbedNote lowest = null;
 		
 		// Get all possibilities for note
@@ -224,22 +231,46 @@ public class Gtab {
 	 * @author andrew
 	 */
 	private class GtabbedNote {
+		
+		/**
+		 * The string # (1-6, or < 0 for invalid notes)
+		 */
 		private int string;
+		
+		/**
+		 * The fret # (0-frets, or < 0 for invalid notes)
+		 */
 		private int fret;
 		
+		/**
+		 * Class constructor
+		 * @param string
+		 * @param fret
+		 */
 		public GtabbedNote(int string, int fret) {			
 			this.string = string;
 			this.fret = fret;
 		}
 		
+		/**
+		 * Get string #
+		 * @return
+		 */
 		public int getStringNum() {
 			return string;
 		}
 		
+		/**
+		 * Get fret #
+		 * @return
+		 */
 		public int getFret() {
 			return fret;
 		}
 		
+		/**
+		 * Return string representing string/fret combination
+		 */
 		public String toString() {
 			return "[s" + string + "f" + fret + "]";
 		}

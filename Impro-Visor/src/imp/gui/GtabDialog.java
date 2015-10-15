@@ -6,20 +6,31 @@ import javax.swing.JDialog;
 
 public class GtabDialog extends JDialog {
 	
+	/**
+	 * The guitar tab we are displaying
+	 */
 	private Gtab gtab;
 	
+	/**
+	 * GUI-related instances
+	 */
 	private javax.swing.JPanel dialogPanel;
 	private javax.swing.JLabel mainLabel;
 	private javax.swing.JTextPane tabText;
 	
-	/** Creates new form GtabDialog */
-    public GtabDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+	/**
+	 * Class constructor
+	 * @param parent
+	 * @param modality
+	 */
+    public GtabDialog(java.awt.Frame parent, boolean modality) {
+        super(parent, modality);
         initComponents();
     }
     
     /**
-     * Display a gtab
+     * Change dialog contents to reflect a new guitar tab
+     * @param gtab
      */
     public void setGtab(Gtab gtab) {
     	this.gtab = gtab;
@@ -29,6 +40,9 @@ public class GtabDialog extends JDialog {
     	this.mainLabel.setText("Six-string guitar tuned in standard with " + this.gtab.getFrets() + " frets");
     }
     
+    /**
+     * Initialize GUI components
+     */
     private void initComponents() {
     	java.awt.GridBagConstraints gridBagConstraints;
     	

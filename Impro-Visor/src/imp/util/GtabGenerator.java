@@ -8,6 +8,12 @@ import imp.data.Note;
  * @author andrew
  */
 public class GtabGenerator {
+	
+	/**
+	 * Make a smart guitar tab given a MelodyPart
+	 * @param mp
+	 * @return
+	 */
 	public static Gtab makeGtabFromMelodyPart(MelodyPart mp) {
 		// Init Gtab
 		Gtab gtab = new Gtab();
