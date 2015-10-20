@@ -7567,7 +7567,7 @@ public Critic getCritic()
         });
         playToolBar.add(playBtn);
         
-        gtabBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imp/gui/graphics/toolbar/play.gif"))); // NOI18N
+        gtabBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imp/gui/graphics/toolbar/gtab.gif"))); // NOI18N
         gtabBtn.setToolTipText("Generate a guitar tab of the current score.");
         gtabBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         gtabBtn.setMaximumSize(new java.awt.Dimension(30, 30));

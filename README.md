@@ -15,7 +15,7 @@ We are planning to implement guitar tabs in the improvisor software.
 * Capture dialog window resize event and regenerate tabs
 * Input boxes for guitar tuning, custom number of strings, custom number of frets
 * Prettier dialog box, gridding, etc
-* Menu bar icon
+* ~~Menu bar icon~~
 
 ## Contributors
 
