@@ -156,10 +156,107 @@ public class Gtab {
 	 * Render this tab as a multiple-stave string with given width
 	 * @return
 	 */
+	
+	
+	
+	
 	public String render(int width) {
-		// TODO
-		// Currently just renders single-stave version
-		return renderAsSingleStave();
+		/**
+		 * @author Nick
+		 * @param width -- the number of notes per stave
+		 * Modified Andrew's singleStave rendering to be multi-line.
+		 */
+		
+		StringBuilder[] sbs = {
+				null, // pad beginning so that array index = string #
+				new StringBuilder("e|"),
+				new StringBuilder("B|"),
+				new StringBuilder("G|"),
+				new StringBuilder("D|"),
+				new StringBuilder("A|"),
+				new StringBuilder("E|")
+		};
+
+		ArrayList<StringBuilder[]> staves = new ArrayList<StringBuilder[]>();
+
+		int noteIndex = 0;
+
+		// Loop all placed notes
+
+		for (GtabbedNote gtn : fns) {
+
+			int staveNumber = noteIndex/width; 	//0 is the first stave, the one on top, 1 is the one below, etc
+			int xPos = noteIndex % width;		//gets the column number
+			
+			
+			// Every "width" number of notes, add a new stave to the stave list.
+			// This will add the initial stave the first time we go through.
+			if(xPos == 0)
+			{
+				staves.add(sbs);
+			}
+
+			//gets the current stave
+			StringBuilder[] currentStave = staves.get(staveNumber);
+
+
+			// If it's an invalid note, denote it as such
+			// TODO handle rests
+			if (gtn.getStringNum() < 0) {
+				// Add exclamation marks to each line
+				for (int i = 1; i < currentStave.length; i++) {
+					currentStave[i].append("!-");
+				}
+				continue;
+			}
+
+			String fret = gtn.getFret() + "-";
+			// Make a hyphen spacer for the other strings; same length as fret number length
+			String spacer = new String(new char[fret.length()]).replace("\0", "-");
+
+			// Loop strings
+			for (int i = 1; i < currentStave.length; i++) {
+				if (i == gtn.getStringNum()) {
+					// If note is on string, give it the fret number
+					currentStave[i].append(fret);
+				} else {
+					// Otherwise, add a spacer of the same length
+					currentStave[i].append(spacer);
+				}
+			}			
+			
+			
+			//sets the current stave that we processed back into the Staves array.
+			staves.set(staveNumber,currentStave);
+			
+			System.out.println("note " + noteIndex + ": " + fret + " added at position " + xPos + " on stave number " + staveNumber);
+
+			//once this note is processed, move on
+			noteIndex++;
+		}
+
+
+
+		// Build final stave string
+		StringBuilder stave = new StringBuilder();
+
+		for(StringBuilder[] currentStave:staves)
+		{
+
+
+			for (int i = 1; i < currentStave.length; i++) {
+				// Append string
+				stave.append(currentStave[i]);
+				// Add final stave bar and newlines after each line
+				stave.append("|\n");
+			}
+			
+			// Add a line between each stave
+			stave.append("\n");
+		}
+
+		// Render and return stave string
+		return stave.toString();
 	}
 	
 	/**

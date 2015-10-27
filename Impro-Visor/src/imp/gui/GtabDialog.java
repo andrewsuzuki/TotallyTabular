@@ -35,7 +35,7 @@ public class GtabDialog extends JDialog {
     public void setGtab(Gtab gtab) {
     	this.gtab = gtab;
     	// TODO handle rendering given width, etc
-    	String rendered = gtab.render(40);
+    	String rendered = gtab.render(25);
     	this.tabText.setText(rendered);
     	this.mainLabel.setText("Six-string guitar tuned in standard with " + this.gtab.getFrets() + " frets");
     }
