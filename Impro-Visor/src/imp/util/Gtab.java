@@ -166,16 +166,6 @@ public class Gtab {
 		 * @param width -- the number of notes per stave
 		 * Modified Andrew's singleStave rendering to be multi-line.
 		 */
-		
-		StringBuilder[] sbs = {
-				null, // pad beginning so that array index = string #
-				new StringBuilder("e|"),
-				new StringBuilder("B|"),
-				new StringBuilder("G|"),
-				new StringBuilder("D|"),
-				new StringBuilder("A|"),
-				new StringBuilder("E|")
-		};
 
 		ArrayList<StringBuilder[]> staves = new ArrayList<StringBuilder[]>();
 
@@ -193,6 +183,16 @@ public class Gtab {
 			// This will add the initial stave the first time we go through.
 			if(xPos == 0)
 			{
+				StringBuilder[] sbs = {
+						null, // pad beginning so that array index = string #
+						new StringBuilder("e|"),
+						new StringBuilder("B|"),
+						new StringBuilder("G|"),
+						new StringBuilder("D|"),
+						new StringBuilder("A|"),
+						new StringBuilder("E|")
+				};
+				
 				staves.add(sbs);
 			}
 
