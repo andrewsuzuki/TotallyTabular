@@ -156,17 +156,7 @@ public class Gtab {
 	 * Render this tab as a multiple-stave string with given width
 	 * @return
 	 */
-	
-	
-	
-	
 	public String render(int width) {
-		/**
-		 * @author Nick
-		 * @param width -- the number of notes per stave
-		 * Modified Andrew's singleStave rendering to be multi-line.
-		 */
-
 		ArrayList<StringBuilder[]> staves = new ArrayList<StringBuilder[]>();
 
 		int noteIndex = 0;
@@ -177,7 +167,6 @@ public class Gtab {
 
 			int staveNumber = noteIndex/width; 	//0 is the first stave, the one on top, 1 is the one below, etc
 			int xPos = noteIndex % width;		//gets the column number
-			
 			
 			// Every "width" number of notes, add a new stave to the stave list.
 			// This will add the initial stave the first time we go through.
@@ -198,7 +187,6 @@ public class Gtab {
 
 			//gets the current stave
 			StringBuilder[] currentStave = staves.get(staveNumber);
-
 
 			// If it's an invalid note, denote it as such
 			// TODO handle rests
@@ -225,25 +213,18 @@ public class Gtab {
 				}
 			}			
 			
-			
 			//sets the current stave that we processed back into the Staves array.
 			staves.set(staveNumber,currentStave);
 			
-			System.out.println("note " + noteIndex + ": " + fret + " added at position " + xPos + " on stave number " + staveNumber);
-
 			//once this note is processed, move on
 			noteIndex++;
 		}
-
-
 
 		// Build final stave string
 		StringBuilder stave = new StringBuilder();
 
 		for(StringBuilder[] currentStave:staves)
 		{
-
-
 			for (int i = 1; i < currentStave.length; i++) {
 				// Append string
 				stave.append(currentStave[i]);
