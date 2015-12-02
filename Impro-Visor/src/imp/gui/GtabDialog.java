@@ -1,8 +1,12 @@
 package imp.gui;
 
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+
 import imp.util.Gtab;
 
 import javax.swing.JDialog;
+import javax.swing.JScrollBar;
 
 public class GtabDialog extends JDialog {
 	
@@ -17,6 +21,7 @@ public class GtabDialog extends JDialog {
 	private javax.swing.JPanel dialogPanel;
 	private javax.swing.JLabel mainLabel;
 	private javax.swing.JTextPane tabText;
+	private javax.swing.JScrollPane scrollPane;
 	
 	/**
 	 * Class constructor
@@ -35,9 +40,15 @@ public class GtabDialog extends JDialog {
     public void setGtab(Gtab gtab) {
     	this.gtab = gtab;
     	// TODO handle rendering given width, etc
-    	String rendered = gtab.render(25);
+    	String rendered = gtab.render(10);
     	this.tabText.setText(rendered);
     	this.mainLabel.setText("Six-string guitar tuned in standard with " + this.gtab.getFrets() + " frets");
+    }
+    
+    public void reRender(int width) {
+    	int tabWidth = width < 300 ? width / 25 : width / 20;
+    	String rendered = gtab.render(tabWidth);
+    	this.tabText.setText(rendered);
     }
     
     /**
@@ -49,6 +60,7 @@ public class GtabDialog extends JDialog {
     	dialogPanel = new javax.swing.JPanel();
     	mainLabel = new javax.swing.JLabel();
     	tabText = new javax.swing.JTextPane();
+    	scrollPane = new javax.swing.JScrollPane(tabText);
     	
     	setTitle("Guitar Tab Viewer\n");
         setFocusCycleRoot(false);
@@ -61,6 +73,32 @@ public class GtabDialog extends JDialog {
         dialogPanel.setMinimumSize(new java.awt.Dimension(500, 900));
         dialogPanel.setPreferredSize(new java.awt.Dimension(500, 900));
         dialogPanel.setLayout(new java.awt.GridBagLayout());
+        
+        dialogPanel.addComponentListener(new ComponentListener() {
+        	@Override
+            public void componentResized(ComponentEvent e) {
+            	int width = e.getComponent().getWidth();
+            	reRender(width);
+            }
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+        });
         
         // Make label
         mainLabel.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
@@ -94,7 +132,7 @@ public class GtabDialog extends JDialog {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.9;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        dialogPanel.add(tabText, gridBagConstraints);
+        dialogPanel.add(scrollPane, gridBagConstraints);
         
         // Add constraints for actual dialog
         gridBagConstraints = new java.awt.GridBagConstraints();
