@@ -83,17 +83,17 @@ public class GtabDialog extends JDialog {
         // Listen to changes to dialog panel
         dialogPanel.addComponentListener(new ComponentListener() {
         	@Override
-            public void componentResized(ComponentEvent e) {
+        	public void componentResized(ComponentEvent e) {
         		// When the window is resized, re-render tab with new width
-            	int width = e.getComponent().getWidth();
-            	reRender(width);
-            }
-			@Override
-			public void componentMoved(ComponentEvent e) {}
-			@Override
-			public void componentShown(ComponentEvent e) {}
-			@Override
-			public void componentHidden(ComponentEvent e) {}
+        		int width = e.getComponent().getWidth();
+        		reRender(width);
+        	}
+        	@Override
+        	public void componentMoved(ComponentEvent e) {}
+        	@Override
+        	public void componentShown(ComponentEvent e) {}
+        	@Override
+        	public void componentHidden(ComponentEvent e) {}
         });
         
         // Make label
