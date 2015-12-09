@@ -133,18 +133,7 @@ public class Gtab {
 			fns.add(lowest);
 		}
 	}
-	
-	/**
-	 * Place note at most comfortable position given recently-placed notes
-	 * @param note
-	 * @param last
-	 */
-	public void placeBasedOnRecent(Note note) {
-		// TODO
-		// Currently just places it at lowest position
-		placeLowest(note);
-	}
-	
+		
 	/**
 	 * Place an invalid note, denoting it as not playable on guitar
 	 */
@@ -162,16 +151,13 @@ public class Gtab {
 		int noteIndex = 0;
 
 		// Loop all placed notes
-
 		for (GtabbedNote gtn : fns) {
-
-			int staveNumber = noteIndex/width; 	//0 is the first stave, the one on top, 1 is the one below, etc
-			int xPos = noteIndex % width;		//gets the column number
+			int staveNumber = noteIndex / width; // 0 is the first stave, the one on top, 1 is the one below, etc
+			int xPos = noteIndex % width; // gets the column number
 			
 			// Every "width" number of notes, add a new stave to the stave list.
 			// This will add the initial stave the first time we go through.
-			if(xPos == 0)
-			{
+			if (xPos == 0) {
 				StringBuilder[] sbs = {
 						null, // pad beginning so that array index = string #
 						new StringBuilder("e|"),
@@ -189,7 +175,6 @@ public class Gtab {
 			StringBuilder[] currentStave = staves.get(staveNumber);
 
 			// If it's an invalid note, denote it as such
-			// TODO handle rests
 			if (gtn.getStringNum() < 0) {
 				// Add exclamation marks to each line
 				for (int i = 1; i < currentStave.length; i++) {
@@ -213,18 +198,16 @@ public class Gtab {
 				}
 			}			
 			
-			//sets the current stave that we processed back into the Staves array.
+			// Set the current stave that we processed back into the Staves array.
 			staves.set(staveNumber,currentStave);
 			
-			//once this note is processed, move on
+			// once this note is processed, move on
 			noteIndex++;
 		}
 
 		// Build final stave string
 		StringBuilder stave = new StringBuilder();
-
-		for(StringBuilder[] currentStave:staves)
-		{
+		for (StringBuilder[] currentStave:staves) {
 			for (int i = 1; i < currentStave.length; i++) {
 				// Append string
 				stave.append(currentStave[i]);
@@ -238,70 +221,6 @@ public class Gtab {
 
 		// Render and return stave string
 		return stave.toString();
-	}
-	
-	/**
-	 * Render this tab as a single stave. Could possibly be very wide.
-	 * @return
-	 */
-	public String renderAsSingleStave() {
-		StringBuilder[] sbs = {
-				null, // pad beginning so that array index = string #
-				new StringBuilder("e|"),
-				new StringBuilder("B|"),
-				new StringBuilder("G|"),
-				new StringBuilder("D|"),
-				new StringBuilder("A|"),
-				new StringBuilder("E|")
-		};
-		
-		// Loop all placed notes
-		for (GtabbedNote gtn : fns) {			
-			// If it's an invalid note, denote it as such
-			// TODO handle rests
-			if (gtn.getStringNum() < 0) {
-				// Add exclamation marks to each line
-				for (int i = 1; i < sbs.length; i++) {
-					sbs[i].append("!-");
-				}
-				continue;
-			}
-			
-			String fret = gtn.getFret() + "-";
-			// Make a hyphen spacer for the other strings; same length as fret number length
-			String spacer = new String(new char[fret.length()]).replace("\0", "-");
-			
-			// Loop strings
-			for (int i = 1; i < sbs.length; i++) {
-				if (i == gtn.getStringNum()) {
-					// If note is on string, give it the fret number
-					sbs[i].append(fret);
-				} else {
-					// Otherwise, add a spacer of the same length
-					sbs[i].append(spacer);
-				}
-			}
-		}
-		
-		// Build final stave string
-		StringBuilder stave = new StringBuilder();
-					
-		for (int i = 1; i < sbs.length; i++) {
-			// Append string
-			stave.append(sbs[i]);
-			// Add final stave bar and newlines after each line
-			stave.append("|\n");
-		}
-		
-		// Render and return stave string
-		return stave.toString();
-	}
-	
-	/**
-	 * Return a render with a 50-character width
-	 */
-	public String toString() {
-		return render(50);
 	}
 	
 	/**

@@ -38,16 +38,22 @@ public class GtabDialog extends JDialog {
      * @param gtab
      */
     public void setGtab(Gtab gtab) {
+    	// Remember it
     	this.gtab = gtab;
-    	// TODO handle rendering given width, etc
+    	// Render at width of 10 initially
     	String rendered = gtab.render(10);
+    	// Set tab string into tab window
     	this.tabText.setText(rendered);
+    	// Set window title
     	this.mainLabel.setText("Six-string guitar tuned in standard with " + this.gtab.getFrets() + " frets");
     }
     
     public void reRender(int width) {
+    	// Approximate tab width (in monospaced characters) based on window width (pixels)
     	int tabWidth = width < 300 ? width / 25 : width / 20;
+    	// Render tab again with new width
     	String rendered = gtab.render(tabWidth);
+    	// Set tab string into tab window
     	this.tabText.setText(rendered);
     }
     
@@ -74,30 +80,20 @@ public class GtabDialog extends JDialog {
         dialogPanel.setPreferredSize(new java.awt.Dimension(500, 900));
         dialogPanel.setLayout(new java.awt.GridBagLayout());
         
+        // Listen to changes to dialog panel
         dialogPanel.addComponentListener(new ComponentListener() {
         	@Override
             public void componentResized(ComponentEvent e) {
+        		// When the window is resized, re-render tab with new width
             	int width = e.getComponent().getWidth();
             	reRender(width);
             }
-
 			@Override
-			public void componentMoved(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
+			public void componentMoved(ComponentEvent e) {}
 			@Override
-			public void componentShown(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
+			public void componentShown(ComponentEvent e) {}
 			@Override
-			public void componentHidden(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void componentHidden(ComponentEvent e) {}
         });
         
         // Make label

@@ -24,7 +24,9 @@ public class GtabGenerator {
 			if (note.isRest()) {
 				continue;
 			}
-			gtab.placeBasedOnRecent(note);
+			
+			// Place note at lowest position in tab
+			gtab.placeLowest(note);
 		}
 		
 		// Return tab
